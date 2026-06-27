@@ -1,131 +1,1387 @@
-SMH · BUYER'S WORKING EXHIBIT
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sharp Money Housing — Buyer's Working Exhibit</title>
+<style>
+  :root{
+    --ink:#1B2430;
+    --ink-soft:#3D4759;
+    --paper:#F1EDE4;
+    --paper-dim:#E7E1D3;
+    --rule:#C9C0AC;
+    --brick:#A23B2E;
+    --brick-soft:#E8D5CF;
+    --slate:#4A6358;
+    --slate-soft:#DCE5DD;
+    --mono: "SF Mono", "Roboto Mono", Consolas, monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family: Georgia, "Source Serif Pro", serif;
+    line-height:1.45;
+  }
+  .data, input, select, .num{
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-variant-numeric: tabular-nums;
+  }
+  header.masthead{
+    border-bottom:3px solid var(--ink);
+    padding:28px 24px 18px;
+    background:var(--paper);
+  }
+  .masthead-top{
+    display:flex; justify-content:space-between; align-items:baseline;
+    flex-wrap:wrap; gap:8px;
+  }
+  .masthead-top .label{
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  h1{
+    font-size:28px; margin:6px 0 4px; font-weight:700; letter-spacing:-0.01em;
+  }
+  .thesis{
+    font-style:italic; color:var(--ink-soft); font-size:15px; max-width:640px;
+  }
+  .property-row{
+    display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;
+  }
+  .property-row input{
+    font-size:14px; padding:9px 11px; border:1.5px solid var(--ink);
+    background:#fff; border-radius:2px; flex:1; min-width:140px;
+  }
+  main{ max-width:760px; margin:0 auto; padding:24px 24px 80px; }
 
-Sharp Money Housing
-The list price is the public line. This is how you find out if it's worth taking — four counter-comps an agent's commission structure will never volunteer: rate-adjusted carry, comps re-priced for the market that no longer exists, the seller's own rent-listing contradiction, and embedded wear cost.
+  .exhibit{
+    background:#fff;
+    border:1.5px solid var(--ink);
+    margin-bottom:28px;
+    box-shadow: 3px 3px 0 var(--rule);
+  }
+  .exhibit-head{
+    display:flex; align-items:center; gap:12px;
+    padding:16px 20px;
+    border-bottom:1.5px solid var(--ink);
+    background:var(--paper-dim);
+  }
+  .exhibit-letter{
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    font-weight:700; font-size:13px;
+    width:28px; height:28px; border-radius:50%;
+    border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .exhibit-title{ font-size:18px; font-weight:700; }
+  .exhibit-sub{
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    font-size:12px; color:var(--ink-soft); margin-top:2px;
+  }
+  .exhibit-body{ padding:20px; }
+
+  .field-grid{
+    display:grid; grid-template-columns: 1fr 1fr; gap:12px 16px;
+    margin-bottom:16px;
+  }
+  .field{ display:flex; flex-direction:column; gap:5px; }
+  .field.full{ grid-column: 1 / -1; }
+  .field label{
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    font-size:11px; letter-spacing:.04em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .field input, .field select{
+    font-size:14px; padding:8px 10px; border:1px solid var(--rule);
+    border-radius:2px; background:var(--paper);
+  }
+  .field input:focus, .field select:focus{ outline:2px solid var(--ink); outline-offset:1px; }
+  .hint{ font-size:11.5px; color:var(--ink-soft); margin-top:-2px; }
+
+  .divider{ border:none; border-top:1px dashed var(--rule); margin:18px 0; }
+
+  .readout{
+    background:var(--paper-dim);
+    border:1px solid var(--rule);
+    border-radius:3px;
+    padding:14px 16px;
+    margin-bottom:10px;
+  }
+  .readout-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:5px 0; font-size:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .readout-row:last-child{ border-bottom:none; }
+  .readout-row .v{ font-family:"Helvetica Neue", Arial, sans-serif; font-weight:600; }
+
+  .gap-stat{
+    margin-top:14px; padding:16px 18px;
+    border:1.5px solid var(--ink);
+    display:flex; justify-content:space-between; align-items:center;
+    gap:16px; flex-wrap:wrap;
+  }
+  .gap-stat.flag-buyer{ border-color:var(--brick); background:var(--brick-soft); }
+  .gap-stat.flag-seller{ border-color:var(--slate); background:var(--slate-soft); }
+  .gap-label{
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:2px;
+  }
+  .gap-value{
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    font-size:30px; font-weight:800; line-height:1;
+  }
+  .gap-note{ font-size:13px; max-width:340px; font-style:italic; color:var(--ink-soft); }
+
+  table.lifespan{ width:100%; border-collapse:collapse; font-size:13px; margin-bottom:14px; }
+  table.lifespan th, table.lifespan td{
+    border-bottom:1px solid var(--rule); padding:7px 6px; text-align:left;
+  }
+  table.lifespan th{
+    font-family:"Helvetica Neue", Arial, sans-serif; font-size:11px;
+    text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft);
+  }
+  table.lifespan input{
+    width:100%; font-size:13px; padding:5px 6px; border:1px solid var(--rule); border-radius:2px;
+    background:var(--paper);
+  }
+  table.lifespan td.num-cell, table.lifespan input.num-cell{ text-align:right; }
+  .status-pill{
+    font-family:"Helvetica Neue", Arial, sans-serif; font-size:10.5px;
+    padding:2px 7px; border-radius:10px; white-space:nowrap; display:inline-block;
+  }
+  .status-ok{ background:var(--slate-soft); color:var(--slate); }
+  .status-end{ background:#F0E2C8; color:#8A6A1A; }
+  .status-overdue{ background:var(--brick-soft); color:var(--brick); }
+  .assumption-toggle{
+    font-family:"Helvetica Neue", Arial, sans-serif; font-size:12px;
+    margin-bottom:10px; color:var(--ink-soft);
+  }
+  .caveat-box{
+    border:1.5px dashed var(--rule); background:var(--paper-dim);
+    padding:10px 13px; border-radius:3px; font-size:12.5px;
+    color:var(--ink-soft); margin-bottom:14px;
+  }
+  .caveat-box.active{ border-color:var(--brick); background:var(--brick-soft); color:var(--brick); }
+  .toggle-row{
+    display:flex; align-items:center; gap:8px; margin-bottom:12px;
+    font-family:"Helvetica Neue", Arial, sans-serif; font-size:13px;
+  }
+  .toggle-row input[type="checkbox"]{ width:16px; height:16px; }
+  .skip-note{
+    font-size:13px; color:var(--ink-soft); font-style:italic; padding:8px 0;
+  }
+
+  .btn{
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    font-size:12px; letter-spacing:.05em; text-transform:uppercase;
+    border:1.5px solid var(--ink); background:var(--ink); color:var(--paper);
+    padding:9px 14px; border-radius:2px; cursor:pointer;
+  }
+  .btn.ghost{ background:transparent; color:var(--ink); }
+  .btn:hover{ opacity:.85; }
+
+  footer{
+    max-width:760px; margin:0 auto; padding:0 24px 60px;
+    font-size:12px; color:var(--ink-soft); font-family:"Helvetica Neue", Arial, sans-serif;
+  }
+  footer p{ margin:4px 0; }
+
+  @media (max-width:560px){
+    .field-grid{ grid-template-columns:1fr; }
+    .gap-value{ font-size:24px; }
+    h1{ font-size:22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <span class="label">SMH · Buyer's Working Exhibit</span>
+    <span class="label" id="todayLabel"></span>
+  </div>
+  <h1>Sharp Money Housing</h1>
+  <p class="thesis">The list price is the public line. This is how you find out if it's worth taking — four counter-comps an agent's commission structure will never volunteer: rate-adjusted carry, comps re-priced for the market that no longer exists, the seller's own rent-listing contradiction, and embedded wear cost.</p>
+  <div class="property-row">
+    <input type="text" id="propAddress" placeholder="Property address">
+    <input type="text" id="listPrice" placeholder="List price (e.g. 615000)">
+  </div>
+</header>
+
+<main>
+
+<div class="exhibit" id="selectorPanel" style="border-color:var(--ink);">
+  <div class="exhibit-head">
+    <div class="exhibit-letter">?</div>
+    <div>
+      <div class="exhibit-title">Which arguments apply to this property?</div>
+      <div class="exhibit-sub">Switch off anything that doesn't fit — the closing summary only counts what's switched on</div>
+    </div>
+  </div>
+  <div class="exhibit-body">
+    <div class="toggle-row">
+      <input type="checkbox" id="toggle-B" checked>
+      <label for="toggle-B"><strong>Rate-Adjusted Payment Reality</strong> — applies when you know the seller's purchase date</label>
+    </div>
+    <div class="toggle-row">
+      <input type="checkbox" id="toggle-D" checked>
+      <label for="toggle-D"><strong>Comp De-Rating</strong> — applies when the price is being justified by nearby comps</label>
+    </div>
+    <div class="toggle-row">
+      <input type="checkbox" id="toggle-C" checked>
+      <label for="toggle-C"><strong>The Seller's Own Rent Test</strong> — only applies if the property was ever listed for rent</label>
+    </div>
+    <div class="toggle-row">
+      <input type="checkbox" id="toggle-A" checked>
+      <label for="toggle-A"><strong>Embedded Wear &amp; Deferred Capital</strong> — generic/inferential; switch off if you'd rather lean only on harder numbers</label>
+    </div>
+  </div>
+</div>
+
+<div class="exhibit-wrapper" id="wrapper-B" data-exhibit="B">
+<!-- EXHIBIT B: RATE-ADJUSTED PAYMENT GAP -->
+  <section class="exhibit">
+    <div class="exhibit-head">
+      <div class="exhibit-letter">A</div>
+      <div>
+        <div class="exhibit-title">Rate-Adjusted Payment Reality</div>
+        <div class="exhibit-sub">What the seller paid monthly then, vs. what this ask costs monthly now</div>
+      </div>
+    </div>
+    <div class="exhibit-body">
+      <div class="field-grid">
+        <div class="field">
+          <label for="sellerPurchasePrice">Seller's purchase price ($)</label>
+          <input type="number" id="sellerPurchasePrice" value="450000" min="0">
+        </div>
+        <div class="field">
+          <label for="sellerPurchaseDate">Seller's purchase date</label>
+          <input type="month" id="sellerPurchaseDate" value="2021-06">
+        </div>
+        <div class="field">
+          <label for="sellerDownPct">Seller's est. down payment (%)</label>
+          <input type="number" id="sellerDownPct" value="20" min="0" max="100">
+        </div>
+        <div class="field">
+          <label for="sellerRate">Rate at seller's purchase (auto, editable %)</label>
+          <input type="number" id="sellerRate" value="3.0" step="0.01" min="0">
+        </div>
+        <div class="field">
+          <label for="buyerDownPct">Your planned down payment (%)</label>
+          <input type="number" id="buyerDownPct" value="10" min="0" max="100">
+        </div>
+        <div class="field">
+          <label for="buyerRate">Today's rate (%)</label>
+          <input type="number" id="buyerRate" value="6.5" step="0.01" min="0">
+        </div>
+      </div>
+      <p class="hint" id="rateLookupNote"></p>
+      <p class="hint">Both this rate and your down payment % carry over to the comp de-rating and rent-test exhibits automatically — edit either field directly in those exhibits if you want different assumptions for that specific calculation.</p>
+
+      <div class="field full">
+        <label for="refiStatus">Did the seller refinance after their original purchase?</label>
+        <select id="refiStatus">
+          <option value="unknown" selected>Unknown — most common, treat exhibit as estimate</option>
+          <option value="no">No — confirmed still on original financing</option>
+          <option value="yes">Yes — I know the refinance date/rate</option>
+        </select>
+      </div>
+      <div class="field-grid" id="refiFields" style="display:none;">
+        <div class="field">
+          <label for="refiDate">Refinance date</label>
+          <input type="month" id="refiDate">
+        </div>
+        <div class="field">
+          <label for="refiRate">Rate at refinance (%)</label>
+          <input type="number" id="refiRate" step="0.01" min="0">
+        </div>
+      </div>
+
+      <div class="caveat-box" id="refiCaveat">
+        <strong>Caveat:</strong> this exhibit assumes the seller still holds their original purchase-date financing. If they refinanced — common for anyone who bought 2019–2021 before rates rose, or did a cash-out refi — their actual monthly payment differs from what's shown, and citing this number as fact rather than estimate risks your credibility on the other two exhibits too. Present this as "a reasonable estimate absent other information," not a confirmed figure.
+      </div>
+
+      <hr class="divider">
+
+      <div class="readout">
+        <div class="readout-row"><span>Seller's est. monthly P&amp;I (at their basis &amp; rate)</span><span class="v num" id="sellerMonthly">—</span></div>
+        <div class="readout-row"><span>Your est. monthly P&amp;I (at list price &amp; today's rate)</span><span class="v num" id="buyerMonthly">—</span></div>
+        <div class="readout-row"><span>Raw price appreciation claimed by ask</span><span class="v num" id="priceAppreciation">—</span></div>
+        <div class="readout-row"><span>What national home prices (Case-Shiller) did over same period</span><span class="v num" id="benchmarkAppreciation">—</span></div>
+        <div class="readout-row"><span><strong>Appreciation in excess of the national index</strong></span><span class="v num" id="excessAppreciation">—</span></div>
+      </div>
+      <p class="hint" id="benchmarkNote"></p>
+
+      <div class="gap-stat" id="rateGapStat">
+        <div>
+          <div class="gap-label">Monthly payment gap you're being asked to absorb</div>
+          <div class="gap-value" id="rateGapValue">$0/mo</div>
+          <div class="gap-range" id="rateGapRange" style="font-size:12px; color:var(--ink-soft); margin-top:2px;"></div>
+        </div>
+        <div class="gap-note" id="rateGapNote">The seller financed this house at a rate that no longer exists. This is the dollar size of the rate environment they're asking you to ignore.</div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="exhibit-wrapper" id="wrapper-D" data-exhibit="D">
+<!-- EXHIBIT D: COMP DE-RATING -->
+  <section class="exhibit">
+    <div class="exhibit-head">
+      <div class="exhibit-letter">B</div>
+      <div>
+        <div class="exhibit-title">Comp De-Rating: Adjusting Neighborhood Comps for Size and the Rate Environment They Sold In</div>
+        <div class="exhibit-sub">A smaller comp that sold at 3% tells you even less than it looks like — two adjustments, applied separately</div>
+      </div>
+    </div>
+    <div class="exhibit-body">
+      <p class="hint">Use this when the subject property last sold long ago (so Exhibit B doesn't apply directly) but the seller/agent is anchoring price off neighborhood comps from 2020–2023. Each comp gets adjusted in two separate steps so you can see how much of the gap is size and how much is rate: (1) normalize to the subject's square footage via $/sqft, (2) re-price that size-normalized figure at today's rate, holding monthly payment constant. Add a row per comp.</p>
+
+      <div class="caveat-box">
+        <strong>Limitation, stated plainly:</strong> $/sqft is a blunt normalization. It doesn't capture lot size, finish quality, layout, or condition — two houses can be the same square footage and not be comparable. Use this to size-correct the obvious mismatch, not as a precise appraisal substitute. If a comp's size is within ~10% of the subject, the size adjustment will be small and the rate adjustment is doing most of the work; if it's a real mismatch (1,800 vs 2,800 sqft), the size step matters a lot and is worth a sentence of explanation if you cite it.
+      </div>
+
+      <table class="lifespan" id="compTable">
+        <thead>
+          <tr>
+            <th>Comp address (optional)</th>
+            <th>Sale price ($)</th>
+            <th>Comp sqft</th>
+            <th>Sale date</th>
+            <th>Size-adj. only</th>
+            <th>Size + rate adj.</th>
+          </tr>
+        </thead>
+        <tbody><!-- rows injected by JS --></tbody>
+      </table>
+      <button class="btn ghost" type="button" onclick="addCompRow()" style="margin-bottom:14px;">+ Add another comp</button>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="compDownPct">Down payment assumption for this test (%)</label>
+          <input type="number" id="compDownPct" value="10" min="0" max="100">
+        </div>
+        <div class="field">
+          <label for="compTodayRate">Today's rate (%)</label>
+          <input type="number" id="compTodayRate" value="6.5" step="0.01" min="0">
+        </div>
+      </div>
+      <p class="hint">Subject property square footage is pulled from Exhibit A (<span id="sqftMirror">2,200</span> sqft) — edit it there if it changes.</p>
+
+      <div class="readout">
+        <div class="readout-row"><span>Average raw comp price</span><span class="v num" id="compAvgRaw">—</span></div>
+        <div class="readout-row"><span>Average after size adjustment only</span><span class="v num" id="compAvgSizeOnly">—</span></div>
+        <div class="readout-row"><span><strong>Average after size + rate adjustment (today's terms)</strong></span><span class="v num" id="compAvgAdjusted">—</span></div>
+      </div>
+
+      <div class="gap-stat" id="compGapStat">
+        <div>
+          <div class="gap-label">How much the comp set is size- and rate-inflated, combined, on average</div>
+          <div class="gap-value" id="compGapValue">$0</div>
+          <div class="gap-range" id="compGapRange" style="font-size:12px; color:var(--ink-soft); margin-top:2px;"></div>
+        </div>
+        <div class="gap-note" id="compGapNote">This is the dollar amount the comps are overstating value by, once adjusted for square footage and the rate environment they sold in — before any discussion of condition, lot, or other finer adjustments.</div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="exhibit-wrapper" id="wrapper-C" data-exhibit="C">
+<!-- EXHIBIT C: RENT-VS-BUY CONTRADICTION -->
+  <section class="exhibit">
+    <div class="exhibit-head">
+      <div class="exhibit-letter">C</div>
+      <div>
+        <div class="exhibit-title">The Seller's Own Rent Test</div>
+        <div class="exhibit-sub">If it didn't rent at X, the sale math has to clear X — or it's not internally consistent</div>
+      </div>
+    </div>
+    <div class="exhibit-body">
+      <div class="field full" style="margin-bottom:14px;">
+        <label for="wasRentListed">Was this property ever listed for rent?</label>
+        <select id="wasRentListed">
+          <option value="no" selected>No — not applicable to this property, skip this exhibit</option>
+          <option value="yes">Yes — it was listed for rent (enter the asking rent below)</option>
+        </select>
+      </div>
+
+      <div id="exhibitCContent" style="display:none;">
+        <div class="field-grid">
+          <div class="field">
+            <label for="askedRent">Asking rent it was listed at ($/mo)</label>
+            <input type="number" id="askedRent" value="3500" min="0">
+          </div>
+          <div class="field">
+            <label for="taxesAnnual">Property taxes (annual, $)</label>
+            <input type="number" id="taxesAnnual" value="9000" min="0">
+          </div>
+          <div class="field">
+            <label for="insAnnual">Homeowners insurance (annual, $)</label>
+            <input type="number" id="insAnnual" value="1800" min="0">
+          </div>
+          <div class="field">
+            <label for="hoaMonthly">HOA / condo fee (monthly, $)</label>
+            <input type="number" id="hoaMonthly" value="0" min="0">
+          </div>
+          <div class="field">
+            <label for="cDownPct">Down payment for this test (%)</label>
+            <input type="number" id="cDownPct" value="10" min="0" max="100">
+          </div>
+          <div class="field">
+            <label for="cRate">Rate for this test (%)</label>
+            <input type="number" id="cRate" value="6.5" step="0.01" min="0">
+          </div>
+        </div>
+        <hr class="divider">
+
+        <div class="readout">
+          <div class="readout-row"><span>P&amp;I at list price</span><span class="v num" id="cPI">—</span></div>
+          <div class="readout-row"><span>+ Taxes (monthly)</span><span class="v num" id="cTax">—</span></div>
+          <div class="readout-row"><span>+ Insurance (monthly)</span><span class="v num" id="cIns">—</span></div>
+          <div class="readout-row"><span>+ HOA</span><span class="v num" id="cHoa">—</span></div>
+          <div class="readout-row"><span><strong>Total monthly carry at list price</strong></span><span class="v num" id="cTotal">—</span></div>
+        </div>
+
+        <div class="gap-stat" id="rentGapStat">
+          <div>
+            <div class="gap-label">Carry cost vs. the market's own rent verdict</div>
+            <div class="gap-value" id="rentGapValue">$0/mo</div>
+            <div class="gap-range" id="rentGapRange" style="font-size:12px; color:var(--ink-soft); margin-top:2px;"></div>
+          </div>
+          <div class="gap-note" id="rentGapNote">The market already told this seller what the space is worth as housing. The sale price is asking you to pay more than that verdict, monthly, for the privilege of owning instead of renting it.</div>
+        </div>
+      </div>
+
+      <p class="skip-note" id="exhibitCSkipNote">This exhibit doesn't apply — most properties were never rent-tested. Skip it and rely on whichever other exhibits fit this property.</p>
+    </div>
+  </section>
+</div>
+<div class="exhibit-wrapper" id="wrapper-A" data-exhibit="A">
+<!-- EXHIBIT A: WEAR / DEFERRED MAINTENANCE -->
+  <section class="exhibit">
+    <div class="exhibit-head">
+      <div class="exhibit-letter">D</div>
+      <div>
+        <div class="exhibit-title">Embedded Wear &amp; Deferred Capital</div>
+        <div class="exhibit-sub">Remaining-useful-life model — not a tax depreciation claim, a physical one</div>
+      </div>
+    </div>
+    <div class="exhibit-body">
+      <div class="field-grid">
+        <div class="field">
+          <label for="houseAge">Age of structure (years)</label>
+          <input type="number" id="houseAge" value="5" min="0">
+        </div>
+        <div class="field">
+          <label for="sqft">Square footage (sizes roof/flooring/siding costs below + Exhibit D comps)</label>
+          <input type="number" id="sqft" value="2200" min="0">
+        </div>
+      </div>
+      <p class="hint">Defaults below are typical industry lifespans and 2026 mid-Atlantic per-sqft rates for size-dependent components (roof, flooring, siding); HVAC/water heater/appliances are flat estimates since they don't scale much with house size. Edit any row with actual age, condition, or quoted replacement cost as you learn it — this is meant to be corrected per property, not trusted blind.</p>
+
+      <div class="caveat-box" id="disclosureCaveat">
+        <strong>Assumption:</strong> every component below is assumed original to construction (installed at year 0) unless you override its age individually. Most seller disclosures are sparse and won't confirm this — if a disclosure mentions a specific replacement ("new roof 2019"), use the per-row age override below instead of relying on house age alone.
+      </div>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="petWearToggle">
+        <label for="petWearToggle">Signs of cat/dog in the home (litter box, dog bed, pet door, listing photos, etc.) — apply accelerated wear to flooring and trim</label>
+      </div>
+      <div class="caveat-box">
+        <strong>Inferential, not confirmed:</strong> this adjusts flooring's effective age upward (~40%) to reflect that pet households tend to show faster functional wear on floors than chronological age suggests — claw marks on hard surfaces, stains and odor in carpet padding or subfloor. Scoped to flooring only; exterior siding wasn't included because pet-related wear there is too localized (door scratching, paw prints) to fairly scale across an entire siding replacement cost. This is a reason to inspect closely, not a fact to cite in a negotiation unless confirmed by disclosure or your own inspection.
+      </div>
+
+      <table class="lifespan" id="lifespanTable">
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Component age (yrs)</th>
+            <th>Expected life (yrs)</th>
+            <th>Replacement cost ($)</th>
+            <th>Status</th>
+            <th>Consumed value</th>
+          </tr>
+        </thead>
+        <tbody><!-- rows injected by JS --></tbody>
+      </table>
+
+      <div class="gap-stat" id="wearGapStat">
+        <div>
+          <div class="gap-label">Estimated consumed capital, age-adjusted</div>
+          <div class="gap-value" id="wearGapValue">$0</div>
+          <div class="gap-range" id="wearGapRange" style="font-size:12px; color:var(--ink-soft); margin-top:2px;"></div>
+        </div>
+        <div class="gap-note" id="wearGapNote">This is wear the buyer inherits on day one — a fact-based opening point for negotiating price or seller-funded credits, separate from whatever the inspection finds.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="exhibit" id="summarySection" style="border-color:var(--ink); box-shadow:4px 4px 0 var(--ink);">
+  <div class="exhibit-head">
+    <div class="exhibit-letter">Σ</div>
+    <div>
+      <div class="exhibit-title">The Net Case</div>
+      <div class="exhibit-sub">Four independent arguments, kept separate — plus a standalone check against national appreciation</div>
+    </div>
+  </div>
+  <div class="exhibit-body">
+    <p class="hint">These are deliberately not summed into one number. Even the two that share units (rate gap and rent gap are both $/mo; wear and comp de-rating are both one-time $) are answering different questions through different mechanisms — stacking them implies they're additive components of one overstatement, when they're really independent, separately-arguable cases. Use whichever ones are switched on above and pick your strongest for the conversation you're having.</p>
+
+    <div class="readout" id="summaryList">
+      <div class="readout-row" id="summaryRowA" style="display:none;"><span>A — Rate-adjusted payment gap</span><span class="v num" id="summaryValA">—</span></div>
+      <div class="readout-row" id="summaryRowB" style="display:none;"><span>B — Comp de-rating gap</span><span class="v num" id="summaryValB">—</span></div>
+      <div class="readout-row" id="summaryRowC" style="display:none;"><span>C — Rent-test gap</span><span class="v num" id="summaryValC">—</span></div>
+      <div class="readout-row" id="summaryRowD" style="display:none;"><span>D — Embedded wear gap</span><span class="v num" id="summaryValD">—</span></div>
+    </div>
+    <p class="skip-note" id="summaryNoneOn" style="display:none;">No exhibits switched on above — turn at least one on to see numbers here.</p>
+
+    <hr class="divider">
+
+    <div class="readout">
+      <div class="readout-row"><span><strong>List price vs. national index (Case-Shiller)</strong></span><span class="v num" id="summaryListVsIndex">—</span></div>
+    </div>
+    <p class="hint" id="summaryListVsIndexDetail">Auto-filled from Exhibit A's seller purchase date/price if you've entered those — edit either field directly to compare against a different reference point instead (e.g. a comp's sale).</p>
+    <div class="field-grid" style="margin-top:10px;">
+      <div class="field">
+        <label for="indexRefDate">Reference date to compare against</label>
+        <input type="month" id="indexRefDate" value="2019-01">
+      </div>
+      <div class="field">
+        <label for="indexRefPrice">What this property (or a close comp) was worth around then ($)</label>
+        <input type="number" id="indexRefPrice" placeholder="e.g. 410000" min="0">
+      </div>
+    </div>
+
+    <p class="hint" style="margin-top:14px;">This is a summary of your own inputs across the exhibits you've switched on — not a recommended offer price, and not a single number to hand someone directly. Numbers include the low–high ranges shown in each exhibit; treat the range, not just the midpoint, as the honest answer.</p>
+  </div>
+</section>
+
+<div style="text-align:center; margin-top:8px;" id="exportControls">
+    <button class="btn" onclick="openExportModal()">Generate Exportable Summary</button>
+    <p style="font-size:12px; color:var(--ink-soft); margin-top:8px;">Opens a panel below with a plain-text summary you can select and copy directly — this works even when downloads/popups are blocked in this view.</p>
+  </div>
+
+  <div id="exportModal" style="display:none;">
+    <div class="exhibit" style="border-color:var(--ink); margin-top:0;">
+      <div class="exhibit-head">
+        <div class="exhibit-letter">✓</div>
+        <div>
+          <div class="exhibit-title">Exportable Summary</div>
+          <div class="exhibit-sub">Select all the text below and copy it — works without any download permission</div>
+        </div>
+      </div>
+      <div class="exhibit-body">
+        <textarea id="exportTextarea" readonly
+          style="width:100%; min-height:380px; font-family:'SF Mono', Consolas, monospace; font-size:12.5px; padding:14px; border:1.5px solid var(--ink); border-radius:3px; background:#fff; color:var(--ink); white-space:pre; resize:vertical;"></textarea>
+        <p class="hint" style="margin-top:10px;">Tap inside the box, select all (Ctrl/Cmd+A), then copy (Ctrl/Cmd+C). Paste into Notes, email, a Word doc, or anywhere else — it's plain text, not raw HTML, so it's readable wherever you paste it.</p>
+        <button class="btn ghost" onclick="document.getElementById('exportModal').style.display='none';" style="margin-top:8px;">Close</button>
+      </div>
+    </div>
+  </div>
 
 
-?
-Which arguments apply to this property?
-Switch off anything that doesn't fit — the closing summary only counts what's switched on
+</main>
 
-Rate-Adjusted Payment Reality — applies when you know the seller's purchase date
+<footer>
+  <p><strong>Notes on sourcing.</strong> Exhibit A defaults are generic industry lifespan/cost assumptions — replace with actual ages and quotes as you learn them. Exhibit B's historical rate and home-price-index benchmark auto-fill from built-in approximations of Freddie Mac's PMMS 30-year average and the S&amp;P/Case-Shiller U.S. National Home Price Index; both are reasonable estimates, not exact archive lookups — overwrite the rate field if you find a more precise figure. Seller purchase price/date should be sourced from the property's public price history (Zillow) or county recorder of deeds, not estimated. Exhibit D's comp de-rating uses the same rate-equivalence logic as Exhibit B, applied to any comp sale you enter.</p>
+  <p>This tool produces informational analysis only. It is not legal, financial, or fiduciary advice, and is not a substitute for your agent, attorney, lender, or inspector.</p>
+</footer>
 
-Comp De-Rating — applies when the price is being justified by nearby comps
+<script>
+  document.getElementById('todayLabel').textContent = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
 
-The Seller's Own Rent Test — only applies if the property was ever listed for rent
+  // ---------- helpers ----------
+  function fmtUSD(n){
+    if (!isFinite(n)) return "—";
+    const sign = n < 0 ? "-" : "";
+    return sign + "$" + Math.abs(Math.round(n)).toLocaleString('en-US');
+  }
+  function monthlyPI(principal, annualRatePct, years){
+    const r = (annualRatePct/100)/12;
+    const n = years*12;
+    if (r === 0) return principal/n;
+    return principal * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+  }
 
-Embedded Wear & Deferred Capital — generic/inferential; switch off if you'd rather lean only on harder numbers
-A
-Rate-Adjusted Payment Reality
-What the seller paid monthly then, vs. what this ask costs monthly now
-SELLER'S PURCHASE PRICE ($)
+  // ---------- EXHIBIT A: wear table ----------
+  // scales:true components scale with the subject's square footage via a $/sqft rate;
+  // scales:false components are treated as roughly flat regardless of house size
+  // (a furnace or water heater doesn't cost proportionally more in a bigger house).
+  // $/sqft rates are mid-range 2026 national figures: roof ~$5.50/sqft (architectural shingle,
+  // roof area approximated as living area), flooring ~$9/sqft blended hardwood+carpet across
+  // ~80% of living area, exterior siding/paint ~$4/sqft of exterior wall area approximated via living area.
+  const lifespanDefaults = [
+    {name:"Roof",            life:22, scales:true,  rate:5.50, flatCost:null},
+    {name:"HVAC system",     life:16, scales:false, rate:null, flatCost:9500},
+    {name:"Water heater",    life:11, scales:false, rate:null, flatCost:2200},
+    {name:"Major appliances",life:13, scales:false, rate:null, flatCost:6500},
+    {name:"Exterior paint/siding", life:10, scales:true, rate:4.00, flatCost:null},
+    {name:"Flooring (carpet/refinish)", life:12, scales:true, rate:9.00, flatCost:null, petSensitive:true},
+  ];
 
-SELLER'S PURCHASE DATE
-SELLER'S EST. DOWN PAYMENT (%)
+  function componentCost(def, subjectSqft){
+    if (def.scales){
+      const sqft = subjectSqft > 0 ? subjectSqft : 2200; // fallback if sqft not yet entered
+      return def.rate * sqft;
+    }
+    return def.flatCost;
+  }
 
-RATE AT SELLER'S PURCHASE (AUTO, EDITABLE %)
+  function buildLifespanTable(){
+    const tbody = document.querySelector('#lifespanTable tbody');
+    tbody.innerHTML = "";
+    const houseAge = parseFloat(document.getElementById('houseAge').value) || 0;
+    const subjectSqft = parseFloat(document.getElementById('sqft').value) || 0;
+    lifespanDefaults.forEach((row, i) => {
+      const tr = document.createElement('tr');
+      const cost = componentCost(row, subjectSqft);
+      const sizeNote = row.scales ? ` <span class="hint" style="display:inline;">(${row.rate.toFixed(2)}/sqft × ${subjectSqft||2200} sqft)</span>` : '';
+      tr.innerHTML = `
+        <td>${row.name}${row.petSensitive ? ' <span class="status-pill" style="background:#E0DCEE;color:#4A3F73;">pet-sensitive</span>' : ''}</td>
+        <td><input type="number" class="age-input num-cell" data-i="${i}" value="${houseAge}" min="0" title="Override if disclosure states actual replacement year"></td>
+        <td><input type="number" class="life-input" data-i="${i}" value="${row.life}" min="1"></td>
+        <td><input type="number" class="cost-input num-cell" data-i="${i}" value="${Math.round(cost)}" min="0" data-scales="${row.scales}" data-rate="${row.rate||''}" title="${row.scales ? 'Auto-calculated from sqft \u00d7 $/sqft rate \u2014 edit the rate below or override this directly' : 'Flat estimate \u2014 edit if you have a real quote'}"></td>
+        <td class="status-cell" data-i="${i}">—</td>
+        <td class="num-cell consumed-cell" data-i="${i}">—</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
 
-YOUR PLANNED DOWN PAYMENT (%)
+  function computeExhibitA(){
+    const petWear = document.getElementById('petWearToggle').checked;
+    let totalConsumed = 0;
+    let totalConsumedLow = 0;
+    let totalConsumedHigh = 0;
+    let anyOverdue = false;
+    document.querySelectorAll('#lifespanTable tbody tr').forEach((tr, idx) => {
+      let compAge = parseFloat(tr.querySelector('.age-input').value) || 0;
+      const life = parseFloat(tr.querySelector('.life-input').value) || 1;
+      const cost = parseFloat(tr.querySelector('.cost-input').value) || 0;
+      const def = lifespanDefaults[idx];
 
-TODAY'S RATE (%)
+      // Pet-wear adjustment applies only to flooring — the well-evidenced case (claw marks on
+      // hardwood, stains/odor in carpet and padding/subfloor). Exterior siding was previously
+      // included here but that conflated a localized effect (door/threshold scratching) with
+      // a line item that represents the whole exterior wall surface — not a defensible scale-up,
+      // so it's been removed rather than left in as a weak claim.
+      let effectiveAge = compAge;
+      let petNote = '';
+      if (petWear && def.petSensitive){
+        effectiveAge = compAge * 1.4; // ~40% accelerated wear — flooring is the clearest pet-wear case
+        petNote = ' <span class="status-pill" style="background:#E0DCEE;color:#4A3F73;">+pet wear</span>';
+      }
 
+      const fraction = Math.min(effectiveAge / life, 1); // consumed value caps at 100% of cost
+      const consumed = fraction * cost;
+      totalConsumed += consumed;
+      // Range: \u00b120% on replacement cost — the most uncertain input in this exhibit,
+      // since these are generic per-sqft/flat defaults until corrected with a real quote.
+      totalConsumedLow += fraction * cost * 0.80;
+      totalConsumedHigh += fraction * cost * 1.20;
 
-Both this rate and your down payment % carry over to the comp de-rating and rent-test exhibits automatically — edit either field directly in those exhibits if you want different assumptions for that specific calculation.
-DID THE SELLER REFINANCE AFTER THEIR ORIGINAL PURCHASE?
-          Unknown — most common, treat exhibit as estimate
-          No — confirmed still on original financing
-          Yes — I know the refinance date/rate
-        
-Caveat: this exhibit assumes the seller still holds their original purchase-date financing. If they refinanced — common for anyone who bought 2019–2021 before rates rose, or did a cash-out refi — their actual monthly payment differs from what's shown, and citing this number as fact rather than estimate risks your credibility on the other two exhibits too. Present this as "a reasonable estimate absent other information," not a confirmed figure.
+      const statusCell = tr.querySelector('.status-cell');
+      const overdueYears = effectiveAge - life;
+      let pill;
+      if (overdueYears > 0){
+        pill = `<span class="status-pill status-overdue">overdue ${overdueYears.toFixed(0)} yr${overdueYears>=2?'s':''}</span>`;
+        anyOverdue = true;
+      } else if (overdueYears > -2){
+        pill = `<span class="status-pill status-end">near end of life</span>`;
+      } else {
+        pill = `<span class="status-pill status-ok">within expected life</span>`;
+      }
+      statusCell.innerHTML = pill + petNote;
+      tr.querySelector('.consumed-cell').textContent = fmtUSD(consumed) + " (" + Math.round(fraction*100) + "%)";
+    });
+    document.getElementById('wearGapValue').textContent = fmtUSD(totalConsumed);
+    document.getElementById('wearGapRange').textContent = `Range: ${fmtUSD(totalConsumedLow)} to ${fmtUSD(totalConsumedHigh)}, from \u00b120% uncertainty in replacement-cost defaults`;
+    const stat = document.getElementById('wearGapStat');
+    stat.classList.remove('flag-buyer','flag-seller');
+    stat.classList.add(totalConsumed > 15000 ? 'flag-buyer' : 'flag-seller');
+    let note = anyOverdue
+      ? "This includes one or more components already past typical expected life — consumed value is capped at full replacement cost, but treat overdue items as near-term cash outlay risk, not just sunk value."
+      : "This is wear the buyer inherits on day one — a fact-based opening point for negotiating price or seller-funded credits, separate from whatever the inspection finds.";
+    if (petWear){
+      note += " Pet-wear adjustment is inferential, not confirmed — treat it as a reason to inspect flooring and trim closely, not as a citable fact in a negotiation unless confirmed by disclosure or inspection.";
+    }
+    document.getElementById('wearGapNote').textContent = note;
+  }
 
-Seller's est. monthly P&I (at their basis & rate)
-—
-Your est. monthly P&I (at list price & today's rate)
-—
-Raw price appreciation claimed by ask
-—
-What national home prices (Case-Shiller) did over same period
-—
-Appreciation in excess of the national index
-—
+  // ---------- EXHIBIT B: rate table (monthly approximation, 2015-2026) ----------
+  // Approximate Freddie Mac PMMS 30yr monthly averages. Editable by user if more precise figure known.
+  const rateTable = {
+    "2015-01":3.71,"2015-06":3.98,"2015-12":3.96,
+    "2016-01":3.87,"2016-06":3.57,"2016-12":4.20,
+    "2017-01":4.15,"2017-06":3.90,"2017-12":3.95,
+    "2018-01":4.03,"2018-06":4.57,"2018-11":4.87,"2018-12":4.64,
+    "2019-01":4.46,"2019-06":3.80,"2019-12":3.72,
+    "2020-01":3.62,"2020-03":3.45,"2020-06":3.16,"2020-09":2.89,"2020-12":2.68,
+    "2021-01":2.74,"2021-03":3.08,"2021-06":2.98,"2021-09":2.88,"2021-12":3.10,
+    "2022-01":3.22,"2022-03":4.17,"2022-06":5.52,"2022-09":6.11,"2022-10":7.08,"2022-12":6.42,
+    "2023-01":6.27,"2023-03":6.54,"2023-06":6.71,"2023-09":7.20,"2023-10":7.62,"2023-12":6.82,
+    "2024-01":6.69,"2024-03":6.82,"2024-06":6.92,"2024-09":6.18,"2024-12":6.72,
+    "2025-01":6.96,"2025-03":6.65,"2025-06":6.84,"2025-09":6.30,"2025-12":6.30,
+    "2026-01":6.30,"2026-03":6.65,"2026-06":6.49,
+  };
+  const rateKeys = Object.keys(rateTable).sort();
 
-MONTHLY PAYMENT GAP YOU'RE BEING ASKED TO ABSORB
-$0/mo
+  // Approximate S&P/Case-Shiller U.S. National Home Price Index, annual values (Jan of each year, index Jan2000=100).
+  // Used only to benchmark "is this specific home's price gain larger or smaller than the national market did
+  // over the same holding period" — not a precise monthly series. Editable in spirit if a precise figure is known.
+  const homePriceIndex = {
+    "2015-01":167.5, "2016-01":177.5, "2017-01":187.5, "2018-01":199.5,
+    "2019-01":208.6, "2020-01":216.6, "2021-01":227.3, "2022-01":277.0,
+    "2023-01":299.8, "2024-01":311.2, "2025-01":322.0, "2026-01":326.6,
+  };
+  const hpiKeys = Object.keys(homePriceIndex).sort();
 
-The seller financed this house at a rate that no longer exists. This is the dollar size of the rate environment they're asking you to ignore.
-B
-Comp De-Rating: Adjusting Neighborhood Comps for Size and the Rate Environment They Sold In
-A smaller comp that sold at 3% tells you even less than it looks like — two adjustments, applied separately
-Use this when the subject property last sold long ago (so Exhibit B doesn't apply directly) but the seller/agent is anchoring price off neighborhood comps from 2020–2023. Each comp gets adjusted in two separate steps so you can see how much of the gap is size and how much is rate: (1) normalize to the subject's square footage via $/sqft, (2) re-price that size-normalized figure at today's rate, holding monthly payment constant. Add a row per comp.
-Limitation, stated plainly: $/sqft is a blunt normalization. It doesn't capture lot size, finish quality, layout, or condition — two houses can be the same square footage and not be comparable. Use this to size-correct the obvious mismatch, not as a precise appraisal substitute. If a comp's size is within ~10% of the subject, the size adjustment will be small and the rate adjustment is doing most of the work; if it's a real mismatch (1,800 vs 2,800 sqft), the size step matters a lot and is worth a sentence of explanation if you cite it.
-COMP ADDRESS (OPTIONAL)
-SALE PRICE ($)
-COMP SQFT
-SALE DATE
-SIZE-ADJ. ONLY
-SIZE + RATE ADJ.
+  function lookupHPI(yyyymm){
+    if (homePriceIndex[yyyymm] !== undefined) return homePriceIndex[yyyymm];
+    let before=null, after=null;
+    for (const k of hpiKeys){
+      if (k <= yyyymm) before = k;
+      if (k >= yyyymm && after===null) after = k;
+    }
+    if (before && after && before!==after){
+      const [by]=before.split('-').map(Number);
+      const [ay]=after.split('-').map(Number);
+      const [ty,tm]=yyyymm.split('-').map(Number);
+      const frac = (ty + (tm-1)/12 - by) / (ay - by);
+      return homePriceIndex[before] + frac*(homePriceIndex[after]-homePriceIndex[before]);
+    }
+    if (before) return homePriceIndex[before];
+    if (after) return homePriceIndex[after];
+    return 300; // fallback
+  }
 
-+ ADD ANOTHER COMP
-DOWN PAYMENT ASSUMPTION FOR THIS TEST (%)
+  function lookupRate(yyyymm){
+    if (rateTable[yyyymm] !== undefined) return {rate: rateTable[yyyymm], exact:true, key:yyyymm};
+    // find nearest bracketing keys and linearly interpolate
+    let before=null, after=null;
+    for (const k of rateKeys){
+      if (k <= yyyymm) before = k;
+      if (k >= yyyymm && after===null) after = k;
+    }
+    if (before && after && before!==after){
+      const [by,bm]=before.split('-').map(Number);
+      const [ay,am]=after.split('-').map(Number);
+      const [ty,tm]=yyyymm.split('-').map(Number);
+      const bIdx=by*12+bm, aIdx=ay*12+am, tIdx=ty*12+tm;
+      const frac = (tIdx-bIdx)/(aIdx-bIdx);
+      const rate = rateTable[before] + frac*(rateTable[after]-rateTable[before]);
+      return {rate: Math.round(rate*100)/100, exact:false, key:before+" → "+after};
+    }
+    if (before) return {rate: rateTable[before], exact:false, key:before};
+    if (after) return {rate: rateTable[after], exact:false, key:after};
+    return {rate: 6.5, exact:false, key:"default"};
+  }
 
-TODAY'S RATE (%)
+  function onPurchaseDateChange(){
+    const dateVal = document.getElementById('sellerPurchaseDate').value; // YYYY-MM
+    if (!dateVal) return;
+    const result = lookupRate(dateVal);
+    document.getElementById('sellerRate').value = result.rate;
+    const note = document.getElementById('rateLookupNote');
+    note.textContent = result.exact
+      ? `Auto-filled from built-in PMMS approximation for ${dateVal}. Overwrite if you find a more precise weekly figure.`
+      : `Estimated by interpolation near ${result.key} — no exact monthly data point for ${dateVal} in the built-in table. Overwrite the rate field if you find the precise figure.`;
+  }
 
-Subject property square footage is pulled from Exhibit A (2,200 sqft) — edit it there if it changes.
-Average raw comp price
-—
-Average after size adjustment only
-—
-Average after size + rate adjustment (today's terms)
-—
-HOW MUCH THE COMP SET IS SIZE- AND RATE-INFLATED, COMBINED, ON AVERAGE
-$0
+  function onRefiStatusChange(){
+    const status = document.getElementById('refiStatus').value;
+    document.getElementById('refiFields').style.display = status === 'yes' ? 'grid' : 'none';
+    const caveat = document.getElementById('refiCaveat');
+    if (status === 'no'){
+      caveat.classList.remove('active');
+      caveat.innerHTML = "<strong>Confirmed:</strong> using original purchase-date financing as stated.";
+    } else if (status === 'yes'){
+      caveat.classList.remove('active');
+      caveat.innerHTML = "<strong>Using refinance terms</strong> below instead of original purchase financing for the seller's monthly payment estimate.";
+    } else {
+      caveat.classList.add('active');
+      caveat.innerHTML = "<strong>Caveat:</strong> refinance status unknown. This exhibit assumes the seller still holds their original purchase-date financing. If they refinanced — common for anyone who bought 2019–2021 before rates rose, or did a cash-out refi — their actual monthly payment differs from what's shown. Present this as a reasonable estimate absent other information, not a confirmed figure, or your credibility on the other exhibits may suffer too.";
+    }
+  }
 
-This is the dollar amount the comps are overstating value by, once adjusted for square footage and the rate environment they sold in — before any discussion of condition, lot, or other finer adjustments.
-C
-The Seller's Own Rent Test
-If it didn't rent at X, the sale math has to clear X — or it's not internally consistent
-WAS THIS PROPERTY EVER LISTED FOR RENT?
-          No — not applicable to this property, skip this exhibit
-          Yes — it was listed for rent (enter the asking rent below)
-        
-This exhibit doesn't apply — most properties were never rent-tested. Skip it and rely on whichever other exhibits fit this property.
-D
-Embedded Wear & Deferred Capital
-Remaining-useful-life model — not a tax depreciation claim, a physical one
-AGE OF STRUCTURE (YEARS)
+  function computeExhibitB(){
+    const sellerPrice = parseFloat(document.getElementById('sellerPurchasePrice').value) || 0;
+    const sellerDownPct = parseFloat(document.getElementById('sellerDownPct').value) || 0;
+    const buyerDownPct = parseFloat(document.getElementById('buyerDownPct').value) || 0;
+    const buyerRate = parseFloat(document.getElementById('buyerRate').value) || 0;
+    const listPrice = parseFloat(document.getElementById('listPrice').value) || 0;
+    const refiStatus = document.getElementById('refiStatus').value;
 
-SQUARE FOOTAGE (SIZES ROOF/FLOORING/SIDING COSTS BELOW + EXHIBIT D COMPS)
+    let sellerRate, sellerLoan;
+    if (refiStatus === 'yes'){
+      const refiRate = parseFloat(document.getElementById('refiRate').value) || 0;
+      sellerRate = refiRate;
+      // assume refinance kept remaining balance roughly similar to original loan basis
+      sellerLoan = sellerPrice * (1 - sellerDownPct/100);
+    } else {
+      sellerRate = parseFloat(document.getElementById('sellerRate').value) || 0;
+      sellerLoan = sellerPrice * (1 - sellerDownPct/100);
+    }
+    const sellerPI = monthlyPI(sellerLoan, sellerRate, 30);
 
-Defaults below are typical industry lifespans and 2026 mid-Atlantic per-sqft rates for size-dependent components (roof, flooring, siding); HVAC/water heater/appliances are flat estimates since they don't scale much with house size. Edit any row with actual age, condition, or quoted replacement cost as you learn it — this is meant to be corrected per property, not trusted blind.
-Assumption: every component below is assumed original to construction (installed at year 0) unless you override its age individually. Most seller disclosures are sparse and won't confirm this — if a disclosure mentions a specific replacement ("new roof 2019"), use the per-row age override below instead of relying on house age alone.
+    const buyerLoan = listPrice * (1 - buyerDownPct/100);
+    const buyerPI = monthlyPI(buyerLoan, buyerRate, 30);
 
-Signs of cat/dog in the home (litter box, dog bed, pet door, listing photos, etc.) — apply accelerated wear to flooring and trim
-Inferential, not confirmed: this adjusts flooring's effective age upward (~40%) to reflect that pet households tend to show faster functional wear on floors than chronological age suggests — claw marks on hard surfaces, stains and odor in carpet padding or subfloor. Scoped to flooring only; exterior siding wasn't included because pet-related wear there is too localized (door scratching, paw prints) to fairly scale across an entire siding replacement cost. This is a reason to inspect closely, not a fact to cite in a negotiation unless confirmed by disclosure or your own inspection.
-COMPONENT
-COMPONENT AGE (YRS)
-EXPECTED LIFE (YRS)
-REPLACEMENT COST ($)
-STATUS
-CONSUMED VALUE
+    document.getElementById('sellerMonthly').textContent = sellerPrice ? fmtUSD(sellerPI) + "/mo" : "—";
+    document.getElementById('buyerMonthly').textContent = listPrice ? fmtUSD(buyerPI) + "/mo" : "—";
 
-ESTIMATED CONSUMED CAPITAL, AGE-ADJUSTED
-$0
+    if (sellerPrice > 0 && listPrice > 0){
+      const pctGain = ((listPrice - sellerPrice)/sellerPrice)*100;
+      document.getElementById('priceAppreciation').textContent =
+        (pctGain>=0?"+":"") + pctGain.toFixed(1) + "% (" + fmtUSD(listPrice-sellerPrice) + ")";
 
-This is wear the buyer inherits on day one — a fact-based opening point for negotiating price or seller-funded credits, separate from whatever the inspection finds.
-Σ
-The Net Case
-Four independent arguments, kept separate — plus a standalone check against national appreciation
-These are deliberately not summed into one number. Even the two that share units (rate gap and rent gap are both $/mo; wear and comp de-rating are both one-time $) are answering different questions through different mechanisms — stacking them implies they're additive components of one overstatement, when they're really independent, separately-arguable cases. Use whichever ones are switched on above and pick your strongest for the conversation you're having.
+      const purchaseDate = document.getElementById('sellerPurchaseDate').value;
+      const today = new Date();
+      const todayKey = today.getFullYear() + "-" + String(today.getMonth()+1).padStart(2,'0');
+      if (purchaseDate){
+        const hpiThen = lookupHPI(purchaseDate);
+        const hpiNow = lookupHPI(todayKey);
+        const benchmarkPct = ((hpiNow - hpiThen)/hpiThen)*100;
+        document.getElementById('benchmarkAppreciation').textContent = "+" + benchmarkPct.toFixed(1) + "% (national index)";
 
+        const excessPct = pctGain - benchmarkPct;
+        const excessDollars = listPrice - (sellerPrice * (hpiNow/hpiThen));
+        document.getElementById('excessAppreciation').textContent =
+          (excessPct>=0?"+":"") + excessPct.toFixed(1) + " pts (" + (excessDollars>=0?"+":"") + fmtUSD(excessDollars) + ")";
 
-List price vs. national index (Case-Shiller)
-—
-Auto-filled from Exhibit A's seller purchase date/price if you've entered those — edit either field directly to compare against a different reference point instead (e.g. a comp's sale).
-REFERENCE DATE TO COMPARE AGAINST
-WHAT THIS PROPERTY (OR A CLOSE COMP) WAS WORTH AROUND THEN ($)
+        document.getElementById('benchmarkNote').textContent = excessPct > 5
+          ? "This ask is pricing in appreciation well beyond what the national market actually did over the same holding period — the excess is the part that isn't explained by the broad housing market, and is fair to question directly."
+          : "This ask's appreciation is roughly in line with (or below) the national market over the same period — the rate-gap argument in this exhibit is likely your stronger lever for this specific property.";
+      } else {
+        document.getElementById('benchmarkAppreciation').textContent = "—";
+        document.getElementById('excessAppreciation').textContent = "—";
+        document.getElementById('benchmarkNote').textContent = "";
+      }
+    } else {
+      document.getElementById('priceAppreciation').textContent = "—";
+      document.getElementById('benchmarkAppreciation').textContent = "—";
+      document.getElementById('excessAppreciation').textContent = "—";
+      document.getElementById('benchmarkNote').textContent = "";
+    }
 
-This is a summary of your own inputs across the exhibits you've switched on — not a recommended offer price, and not a single number to hand someone directly. Numbers include the low–high ranges shown in each exhibit; treat the range, not just the midpoint, as the honest answer.
-GENERATE EXPORTABLE SUMMARY
-Opens a panel below with a plain-text summary you can select and copy directly — this works even when downloads/popups are blocked in this view.
-Notes on sourcing. Exhibit A defaults are generic industry lifespan/cost assumptions — replace with actual ages and quotes as you learn them. Exhibit B's historical rate and home-price-index benchmark auto-fill from built-in approximations of Freddie Mac's PMMS 30-year average and the S&P/Case-Shiller U.S. National Home Price Index; both are reasonable estimates, not exact archive lookups — overwrite the rate field if you find a more precise figure. Seller purchase price/date should be sourced from the property's public price history (Zillow) or county recorder of deeds, not estimated. Exhibit D's comp de-rating uses the same rate-equivalence logic as Exhibit B, applied to any comp sale you enter.
-This tool produces informational analysis only. It is not legal, financial, or fiduciary advice, and is not a substitute for your agent, attorney, lender, or inspector.
+    const gap = buyerPI - sellerPI;
+    document.getElementById('rateGapValue').textContent = (gap>=0?"+":"") + fmtUSD(gap) + "/mo";
+
+    // Range: the real uncertainty here is the historical rate lookup when it's interpolated
+    // rather than an exact PMMS month. Band the seller rate by ±0.3pp when interpolated,
+    // ±0.1pp when exact (acknowledging even "exact" PMMS approximation isn't archive-perfect).
+    const purchaseDateForBand = document.getElementById('sellerPurchaseDate').value;
+    let rateBand = 0.1;
+    if (purchaseDateForBand && refiStatus !== 'yes'){
+      rateBand = lookupRate(purchaseDateForBand).exact ? 0.1 : 0.3;
+    } else if (refiStatus === 'yes') {
+      rateBand = 0.15; // user supplied a specific refi rate, less uncertainty but not zero
+    }
+    const sellerPILow = monthlyPI(sellerLoan, Math.max(sellerRate - rateBand, 0.1), 30);
+    const sellerPIHigh = monthlyPI(sellerLoan, sellerRate + rateBand, 30);
+    const gapLow = buyerPI - sellerPIHigh; // higher seller rate → smaller gap
+    const gapHigh = buyerPI - sellerPILow; // lower seller rate → larger gap
+    document.getElementById('rateGapRange').textContent = sellerPrice
+      ? `Range: ${fmtUSD(gapLow)}/mo to ${fmtUSD(gapHigh)}/mo, depending on \u00b1${rateBand}pp uncertainty in the historical rate lookup`
+      : '';
+
+    const stat = document.getElementById('rateGapStat');
+    stat.classList.remove('flag-buyer','flag-seller');
+    stat.classList.add(gap > 0 ? 'flag-buyer' : 'flag-seller');
+    const uncertainty = refiStatus === 'unknown' ? " (treat as estimate — refinance status unconfirmed)" : "";
+    document.getElementById('rateGapNote').textContent = (gap > 0
+      ? "The seller financed this house at a rate that may no longer exist. This is the estimated size of the rate environment they're asking you to absorb on top of their price."
+      : "At today's rate, your monthly cost is at or below the seller's estimated original financed cost — a useful data point in your favor.") + uncertainty;
+  }
+
+  function onRentListedChange(){
+    const wasListed = document.getElementById('wasRentListed').value === 'yes';
+    document.getElementById('exhibitCContent').style.display = wasListed ? 'block' : 'none';
+    document.getElementById('exhibitCSkipNote').style.display = wasListed ? 'none' : 'block';
+  }
+
+  // ---------- EXHIBIT C: rent contradiction ----------
+  function computeExhibitC(){
+    if (document.getElementById('wasRentListed').value !== 'yes') return; // skip entirely if not applicable
+    const listPrice = parseFloat(document.getElementById('listPrice').value) || 0;
+    const downPct = parseFloat(document.getElementById('cDownPct').value) || 0;
+    const rate = parseFloat(document.getElementById('cRate').value) || 0;
+    const taxesAnnual = parseFloat(document.getElementById('taxesAnnual').value) || 0;
+    const insAnnual = parseFloat(document.getElementById('insAnnual').value) || 0;
+    const hoa = parseFloat(document.getElementById('hoaMonthly').value) || 0;
+    const askedRent = parseFloat(document.getElementById('askedRent').value) || 0;
+
+    const loan = listPrice * (1 - downPct/100);
+    const pi = monthlyPI(loan, rate, 30);
+    const taxMo = taxesAnnual/12;
+    const insMo = insAnnual/12;
+    const total = pi + taxMo + insMo + hoa;
+
+    document.getElementById('cPI').textContent = fmtUSD(pi);
+    document.getElementById('cTax').textContent = fmtUSD(taxMo);
+    document.getElementById('cIns').textContent = fmtUSD(insMo);
+    document.getElementById('cHoa').textContent = fmtUSD(hoa);
+    document.getElementById('cTotal').textContent = fmtUSD(total) + "/mo";
+
+    const gap = total - askedRent;
+    document.getElementById('rentGapValue').textContent = (gap>=0?"+":"") + fmtUSD(gap) + "/mo";
+
+    // Range: this exhibit is mostly hard inputs (actual rent, actual tax/insurance).
+    // The one soft input is the rate assumption if you haven't shopped lenders yet —
+    // band it \u00b10.25pp to reflect that.
+    const rateBandC = 0.25;
+    const piLow = monthlyPI(loan, Math.max(rate - rateBandC, 0.1), 30);
+    const piHigh = monthlyPI(loan, rate + rateBandC, 30);
+    const totalLow = piLow + taxMo + insMo + hoa;
+    const totalHigh = piHigh + taxMo + insMo + hoa;
+    const gapLow = totalLow - askedRent;
+    const gapHigh = totalHigh - askedRent;
+    document.getElementById('rentGapRange').textContent = listPrice
+      ? `Range: ${fmtUSD(gapLow)}/mo to ${fmtUSD(gapHigh)}/mo, from \u00b1${rateBandC}pp uncertainty if you haven't locked a rate yet`
+      : '';
+
+    const stat = document.getElementById('rentGapStat');
+    stat.classList.remove('flag-buyer','flag-seller');
+    stat.classList.add(gap > 0 ? 'flag-buyer' : 'flag-seller');
+    document.getElementById('rentGapNote').textContent = gap > 0
+      ? `The market already priced this space at $${askedRent.toLocaleString()}/mo as a rental. Owning it at the list price costs ${fmtUSD(gap)}/mo more than that verdict.`
+      : `At this price, owning actually costs at or below what the market said the space is worth to rent — a weaker version of this argument here.`;
+  }
+
+  // ---------- EXHIBIT D: comp de-rating ----------
+  let compRowCount = 0;
+  function addCompRow(prefill){
+    const tbody = document.querySelector('#compTable tbody');
+    const idx = compRowCount++;
+    const tr = document.createElement('tr');
+    tr.dataset.compIdx = idx;
+    tr.innerHTML = `
+      <td><input type="text" class="comp-addr" placeholder="optional"></td>
+      <td><input type="number" class="comp-price num-cell" min="0" placeholder="e.g. 540000"></td>
+      <td><input type="number" class="comp-sqft num-cell" min="0" placeholder="e.g. 1900"></td>
+      <td><input type="month" class="comp-date"></td>
+      <td class="num-cell comp-size-only">—</td>
+      <td class="num-cell comp-adjusted">—</td>
+    `;
+    tbody.appendChild(tr);
+    if (prefill){
+      tr.querySelector('.comp-price').value = prefill.price;
+      tr.querySelector('.comp-sqft').value = prefill.sqft || '';
+      tr.querySelector('.comp-date').value = prefill.date;
+    }
+  }
+
+  function computeExhibitD(){
+    const downPct = parseFloat(document.getElementById('compDownPct').value) || 0;
+    const todayRate = parseFloat(document.getElementById('compTodayRate').value) || 0;
+    const subjectSqft = parseFloat(document.getElementById('sqft').value) || 0;
+    document.getElementById('sqftMirror').textContent = subjectSqft ? subjectSqft.toLocaleString() : '—';
+
+    // Re-prices a size-normalized price at a given historical rate to today's terms, for a given $/sqft sensitivity.
+    function adjustedPrice(sizeNormalizedPrice, histRate){
+      const loanThen = sizeNormalizedPrice * (1 - downPct/100);
+      const paymentThen = monthlyPI(loanThen, histRate, 30);
+      const r = (todayRate/100)/12;
+      const n = 30*12;
+      let loanToday;
+      if (r === 0) { loanToday = paymentThen * n; }
+      else { loanToday = paymentThen * (Math.pow(1+r,n)-1) / (r*Math.pow(1+r,n)); }
+      return loanToday / (1 - downPct/100);
+    }
+
+    const rows = document.querySelectorAll('#compTable tbody tr');
+    let totalRaw = 0, totalSizeOnly = 0, totalAdjusted = 0, totalAdjustedLow = 0, totalAdjustedHigh = 0, validCount = 0;
+
+    rows.forEach(tr => {
+      const price = parseFloat(tr.querySelector('.comp-price').value) || 0;
+      const compSqft = parseFloat(tr.querySelector('.comp-sqft').value) || 0;
+      const dateVal = tr.querySelector('.comp-date').value;
+      const sizeCell = tr.querySelector('.comp-size-only');
+      const adjustedCell = tr.querySelector('.comp-adjusted');
+
+      if (!price || !dateVal){
+        sizeCell.textContent = "—";
+        adjustedCell.textContent = "—";
+        return;
+      }
+
+      // Step 1: size-normalize via $/sqft, only if both comp and subject sqft are known.
+      let sizeNormalizedPrice = price;
+      if (compSqft > 0 && subjectSqft > 0){
+        const pricePerSqft = price / compSqft;
+        sizeNormalizedPrice = pricePerSqft * subjectSqft;
+      }
+      sizeCell.textContent = fmtUSD(sizeNormalizedPrice);
+
+      // Step 2: rate-adjust the size-normalized price (point estimate).
+      const lookup = lookupRate(dateVal);
+      const histRate = lookup.rate;
+      const priceToday = adjustedPrice(sizeNormalizedPrice, histRate);
+      adjustedCell.textContent = fmtUSD(priceToday);
+
+      // Range: vary the size-normalization by \u00b110% (proxy for condition/finish uncertainty
+      // at a given size) and the historical rate by the same exact/interpolated band as Exhibit A.
+      const rateBand = lookup.exact ? 0.1 : 0.3;
+      const priceTodayLow = adjustedPrice(sizeNormalizedPrice * 0.90, histRate + rateBand);
+      const priceTodayHigh = adjustedPrice(sizeNormalizedPrice * 1.10, Math.max(histRate - rateBand, 0.1));
+
+      totalRaw += price;
+      totalSizeOnly += sizeNormalizedPrice;
+      totalAdjusted += priceToday;
+      totalAdjustedLow += priceTodayLow;
+      totalAdjustedHigh += priceTodayHigh;
+      validCount++;
+    });
+
+    if (validCount > 0){
+      const avgRaw = totalRaw/validCount;
+      const avgSizeOnly = totalSizeOnly/validCount;
+      const avgAdjusted = totalAdjusted/validCount;
+      const avgAdjustedLow = totalAdjustedLow/validCount;
+      const avgAdjustedHigh = totalAdjustedHigh/validCount;
+      document.getElementById('compAvgRaw').textContent = fmtUSD(avgRaw);
+      document.getElementById('compAvgSizeOnly').textContent = fmtUSD(avgSizeOnly);
+      document.getElementById('compAvgAdjusted').textContent = fmtUSD(avgAdjusted);
+      const gap = avgRaw - avgAdjusted;
+      const gapLow = avgRaw - avgAdjustedHigh; // higher adjusted estimate → smaller gap
+      const gapHigh = avgRaw - avgAdjustedLow; // lower adjusted estimate → larger gap
+      document.getElementById('compGapValue').textContent = fmtUSD(gap);
+      document.getElementById('compGapRange').textContent = `Range: ${fmtUSD(gapLow)} to ${fmtUSD(gapHigh)}, from \u00b110% size-normalization uncertainty and rate-lookup precision`;
+      const stat = document.getElementById('compGapStat');
+      stat.classList.remove('flag-buyer','flag-seller');
+      stat.classList.add(gap > 5000 ? 'flag-buyer' : 'flag-seller');
+      const sizeShare = avgRaw - avgSizeOnly;
+      const rateShare = avgSizeOnly - avgAdjusted;
+      document.getElementById('compGapNote').textContent = gap > 5000
+        ? `Of the average ${fmtUSD(gap)} gap, about ${fmtUSD(sizeShare)} comes from square footage mismatch and ${fmtUSD(rateShare)} from the rate environment these comps sold in. That combined market — that size, at that rate — doesn't exist anymore.`
+        : `These comps don't show much combined size/rate inflation relative to today's environment. This exhibit may not be your strongest lever for this property.`;
+    } else {
+      document.getElementById('compAvgRaw').textContent = "—";
+      document.getElementById('compAvgSizeOnly').textContent = "—";
+      document.getElementById('compAvgAdjusted').textContent = "—";
+      document.getElementById('compGapValue').textContent = "$0";
+      document.getElementById('compGapRange').textContent = "";
+    }
+  }
+
+  function applyExhibitToggles(){
+    ['A','B','C','D'].forEach(key => {
+      const checked = document.getElementById('toggle-' + key).checked;
+      const wrapper = document.getElementById('wrapper-' + key);
+      if (wrapper) wrapper.style.display = checked ? '' : 'none';
+    });
+  }
+
+  // Parses a formatted currency string like "$12,345" or "+$340/mo" or "-$1,200 (12%)" into a signed number.
+  function parseMoney(str){
+    if (!str) return null;
+    const match = str.match(/(-?\$[\d,]+(\.\d+)?)/);
+    if (!match) return null;
+    const num = parseFloat(match[1].replace(/[$,]/g, ''));
+    return isNaN(num) ? null : num;
+  }
+
+  // Parses a low/high pair out of a range sentence like "Range: $X to $Y, from ..." into [low, high].
+  function parseRange(str){
+    if (!str) return null;
+    const matches = str.match(/-?\$[\d,]+(\.\d+)?/g);
+    if (!matches || matches.length < 2) return null;
+    const nums = matches.slice(0,2).map(s => parseFloat(s.replace(/[$,]/g,'')));
+    return nums;
+  }
+
+  function computeSummary(){
+    const onA = document.getElementById('toggle-A').checked;
+    const onB = document.getElementById('toggle-B').checked;
+    const onC = document.getElementById('toggle-C').checked;
+    const onD = document.getElementById('toggle-D').checked;
+    const cApplies = onC && document.getElementById('wasRentListed').value === 'yes';
+
+    let anyOn = false;
+
+    // Row A — rate-adjusted payment gap (internally computeExhibitB)
+    const rowA = document.getElementById('summaryRowA');
+    if (onA){
+      anyOn = true;
+      rowA.style.display = '';
+      const point = document.getElementById('rateGapValue').textContent;
+      const range = parseRange(document.getElementById('rateGapRange').textContent);
+      document.getElementById('summaryValA').textContent = point + (range ? `  (range ${fmtUSD(range[0])} to ${fmtUSD(range[1])}/mo)` : '');
+    } else {
+      rowA.style.display = 'none';
+    }
+
+    // Row B — comp de-rating gap (internally computeExhibitD)
+    const rowB = document.getElementById('summaryRowB');
+    if (onB){
+      anyOn = true;
+      rowB.style.display = '';
+      const point = document.getElementById('compGapValue').textContent;
+      const range = parseRange(document.getElementById('compGapRange').textContent);
+      document.getElementById('summaryValB').textContent = point + (range ? `  (range ${fmtUSD(range[0])} to ${fmtUSD(range[1])})` : '');
+    } else {
+      rowB.style.display = 'none';
+    }
+
+    // Row C — rent test gap (internally computeExhibitC), only if it actually applies
+    const rowC = document.getElementById('summaryRowC');
+    if (cApplies){
+      anyOn = true;
+      rowC.style.display = '';
+      const point = document.getElementById('rentGapValue').textContent;
+      const range = parseRange(document.getElementById('rentGapRange').textContent);
+      document.getElementById('summaryValC').textContent = point + (range ? `  (range ${fmtUSD(range[0])} to ${fmtUSD(range[1])}/mo)` : '');
+    } else {
+      rowC.style.display = 'none';
+    }
+
+    // Row D — embedded wear gap (internally computeExhibitA)
+    const rowD = document.getElementById('summaryRowD');
+    if (onD){
+      anyOn = true;
+      rowD.style.display = '';
+      const point = document.getElementById('wearGapValue').textContent;
+      const range = parseRange(document.getElementById('wearGapRange').textContent);
+      document.getElementById('summaryValD').textContent = point + (range ? `  (range ${fmtUSD(range[0])} to ${fmtUSD(range[1])})` : '');
+    } else {
+      rowD.style.display = 'none';
+    }
+
+    document.getElementById('summaryNoneOn').style.display = anyOn ? 'none' : 'block';
+
+    // Standalone list-price vs. national index check — independent of seller-specific inputs,
+    // so it still works with Exhibit A off or the seller's purchase data unknown.
+    const listPrice = parseFloat(document.getElementById('listPrice').value) || 0;
+    const refDate = document.getElementById('indexRefDate').value;
+    const refPrice = parseFloat(document.getElementById('indexRefPrice').value) || 0;
+    if (listPrice > 0 && refPrice > 0 && refDate){
+      const today = new Date();
+      const todayKey = today.getFullYear() + "-" + String(today.getMonth()+1).padStart(2,'0');
+      const hpiThen = lookupHPI(refDate);
+      const hpiNow = lookupHPI(todayKey);
+      const predictedPrice = refPrice * (hpiNow / hpiThen);
+      const delta = listPrice - predictedPrice;
+      const deltaPct = (delta / predictedPrice) * 100;
+      document.getElementById('summaryListVsIndex').textContent =
+        (delta>=0?'+':'') + fmtUSD(delta) + ` (${deltaPct>=0?'+':''}${deltaPct.toFixed(1)}%) vs. national-index prediction`;
+      document.getElementById('summaryListVsIndexDetail').textContent =
+        `If this property tracked the national Case-Shiller index exactly from ${refDate} to today, it would be worth about ${fmtUSD(predictedPrice)} now. ` +
+        (deltaPct > 5
+          ? `The list price is running ${deltaPct.toFixed(1)}% hotter than the national market over that period — that excess is fair to question directly, independent of anything seller-specific.`
+          : `The list price is roughly in line with (or below) the national market over that period — this particular check doesn't add much leverage here.`);
+    } else {
+      document.getElementById('summaryListVsIndex').textContent = '—';
+      document.getElementById('summaryListVsIndexDetail').textContent = 'Enter a reference date and price (or fill in Exhibit A\'s seller purchase date/price, which auto-fills these) to run this check. Works even with Exhibit A switched off, since this check only needs the list price and a reference year/value.';
+    }
+  }
+
+  function recomputeAll(){
+    applyExhibitToggles();
+    computeExhibitA();
+    computeExhibitB();
+    computeExhibitC();
+    computeExhibitD();
+    computeSummary();
+  }
+
+  function openExportModal(){
+    const get = id => { const el = document.getElementById(id); return el ? (el.value !== undefined && el.tagName !== 'SELECT' ? el.value : el.textContent.trim()) : ''; };
+    const addr = get('propAddress') || '(address not entered)';
+    const list = get('listPrice') || '(not entered)';
+    const today = new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+
+    let lines = [];
+    lines.push('SHARP MONEY HOUSING — BUYER\'S WORKING EXHIBIT');
+    lines.push('Generated ' + today);
+    lines.push('Property: ' + addr);
+    lines.push('List price: $' + list);
+    lines.push('='.repeat(60));
+    lines.push('');
+
+    const onA = document.getElementById('toggle-A').checked;
+    const onB = document.getElementById('toggle-B').checked;
+    const onC = document.getElementById('toggle-C').checked;
+    const onD = document.getElementById('toggle-D').checked;
+    const cApplies = onC && document.getElementById('wasRentListed').value === 'yes';
+
+    // Exhibit B
+    if (onB){
+      lines.push('EXHIBIT A — RATE-ADJUSTED PAYMENT REALITY');
+      lines.push('-'.repeat(60));
+      lines.push("  Seller's purchase price: $" + get('sellerPurchasePrice') + '  |  Purchase date: ' + get('sellerPurchaseDate'));
+      lines.push('  Refinance status: ' + document.getElementById('refiStatus').selectedOptions[0].textContent);
+      lines.push("  Seller's est. monthly P&I: " + get('sellerMonthly'));
+      lines.push('  Your est. monthly P&I (list price, today\'s rate): ' + get('buyerMonthly'));
+      lines.push('  Raw price appreciation: ' + get('priceAppreciation'));
+      lines.push('  National index (Case-Shiller) over same period: ' + get('benchmarkAppreciation'));
+      lines.push('  Appreciation in excess of national index: ' + get('excessAppreciation'));
+      lines.push('  ' + get('benchmarkNote'));
+      lines.push('  MONTHLY PAYMENT GAP: ' + get('rateGapValue'));
+      lines.push('  ' + get('rateGapNote'));
+      lines.push('');
+    }
+
+    // Exhibit D
+    if (onD){
+      lines.push('EXHIBIT B — COMP DE-RATING (SIZE + RATE ADJUSTED)');
+      lines.push('-'.repeat(60));
+      lines.push('  Subject square footage: ' + get('sqft'));
+      document.querySelectorAll('#compTable tbody tr').forEach((tr, i) => {
+        const addr2 = tr.querySelector('.comp-addr').value || `Comp ${i+1}`;
+        const price = tr.querySelector('.comp-price').value;
+        const sqftV = tr.querySelector('.comp-sqft').value;
+        const date = tr.querySelector('.comp-date').value;
+        const sizeOnly = tr.querySelector('.comp-size-only').textContent.trim();
+        const adjusted = tr.querySelector('.comp-adjusted').textContent.trim();
+        if (price && date){
+          lines.push(`  ${addr2}: $${price}, ${sqftV||'?'} sqft, sold ${date} → size-adj ${sizeOnly} → size+rate-adj ${adjusted}`);
+        }
+      });
+      lines.push('  Average raw: ' + get('compAvgRaw') + '  |  Size-adj avg: ' + get('compAvgSizeOnly') + '  |  Size+rate-adj avg: ' + get('compAvgAdjusted'));
+      lines.push('  COMBINED SIZE+RATE INFLATION: ' + get('compGapValue'));
+      lines.push('  ' + get('compGapNote'));
+      lines.push('');
+    }
+
+    // Exhibit C
+    if (cApplies){
+      lines.push("EXHIBIT C — THE SELLER'S OWN RENT TEST");
+      lines.push('-'.repeat(60));
+      lines.push('  Asking rent it was listed at: $' + get('askedRent') + '/mo');
+      lines.push('  Total monthly carry at list price: ' + get('cTotal'));
+      lines.push('  CARRY VS. RENT VERDICT GAP: ' + get('rentGapValue'));
+      lines.push('  ' + get('rentGapNote'));
+      lines.push('');
+    } else if (onC) {
+      lines.push("EXHIBIT C — THE SELLER'S OWN RENT TEST: not applicable (property wasn't rent-listed)");
+      lines.push('');
+    }
+
+    // Exhibit A
+    if (onA){
+      lines.push('EXHIBIT D — EMBEDDED WEAR & DEFERRED CAPITAL');
+      lines.push('-'.repeat(60));
+      document.querySelectorAll('#lifespanTable tbody tr').forEach(tr => {
+        const name = tr.children[0].textContent.trim();
+        const age = tr.querySelector('.age-input').value;
+        const life = tr.querySelector('.life-input').value;
+        const cost = tr.querySelector('.cost-input').value;
+        const status = tr.querySelector('.status-cell').textContent.trim();
+        const consumed = tr.querySelector('.consumed-cell').textContent.trim();
+        lines.push(`  ${name}: age ${age}/${life} yrs, replacement cost $${cost} — ${status} — consumed value ${consumed}`);
+      });
+      lines.push('  TOTAL ESTIMATED CONSUMED CAPITAL: ' + get('wearGapValue'));
+      lines.push('  ' + get('wearGapNote'));
+      lines.push('');
+    }
+
+    // Summary
+    lines.push('='.repeat(60));
+    lines.push('THE NET CASE (four independent arguments — not summed; only exhibits switched on above)');
+    lines.push('-'.repeat(60));
+    if (document.getElementById('toggle-A').checked){
+      lines.push('  A — Rate-adjusted payment gap: ' + get('summaryValA'));
+    }
+    if (document.getElementById('toggle-B').checked){
+      lines.push('  B — Comp de-rating gap: ' + get('summaryValB'));
+    }
+    if (document.getElementById('toggle-C').checked && document.getElementById('wasRentListed').value === 'yes'){
+      lines.push('  C — Rent-test gap: ' + get('summaryValC'));
+    }
+    if (document.getElementById('toggle-D').checked){
+      lines.push('  D — Embedded wear gap: ' + get('summaryValD'));
+    }
+    lines.push('');
+    lines.push('  List price vs. national index (Case-Shiller): ' + get('summaryListVsIndex'));
+    lines.push('    ' + get('summaryListVsIndexDetail'));
+    lines.push('');
+    lines.push('='.repeat(60));
+    lines.push('Informational only. Not legal, financial, or fiduciary advice.');
+    lines.push('Not a substitute for your agent, attorney, lender, or inspector.');
+
+    document.getElementById('exportTextarea').value = lines.join('\n');
+    const modal = document.getElementById('exportModal');
+    modal.style.display = 'block';
+    modal.scrollIntoView({behavior:'smooth', block:'start'});
+    document.getElementById('exportTextarea').focus();
+    document.getElementById('exportTextarea').select();
+  }
+
+  // ---------- Cross-exhibit field syncing ----------
+  // Several fields represent the same real-world fact entered once but needed in multiple
+  // exhibits (today's mortgage rate; the seller's purchase date/price as a reference point for
+  // the standalone index check). Sync them automatically, but stop overwriting a field the
+  // moment the user edits it directly — auto-fill should save retyping, never fight an override.
+  const manuallyTouched = {};
+  function markTouched(id){ manuallyTouched[id] = true; }
+
+  function syncRateFields(sourceId){
+    const sourceVal = document.getElementById(sourceId).value;
+    ['buyerRate','compTodayRate','cRate'].forEach(id => {
+      if (id === sourceId) return;
+      if (!manuallyTouched[id]){
+        document.getElementById(id).value = sourceVal;
+      }
+    });
+  }
+
+  function syncDownPaymentFields(sourceId){
+    const sourceVal = document.getElementById(sourceId).value;
+    ['buyerDownPct','compDownPct','cDownPct'].forEach(id => {
+      if (id === sourceId) return;
+      if (!manuallyTouched[id]){
+        document.getElementById(id).value = sourceVal;
+      }
+    });
+  }
+
+  function syncIndexReference(){
+    const purchaseDate = document.getElementById('sellerPurchaseDate').value;
+    const purchasePrice = document.getElementById('sellerPurchasePrice').value;
+    if (purchaseDate && !manuallyTouched['indexRefDate']){
+      document.getElementById('indexRefDate').value = purchaseDate;
+    }
+    if (purchasePrice && !manuallyTouched['indexRefPrice']){
+      document.getElementById('indexRefPrice').value = purchasePrice;
+    }
+  }
+
+  buildLifespanTable();
+  addCompRow({price: 540000, sqft: 1950, date: '2022-06'});
+  addCompRow({price: 565000, sqft: 2350, date: '2023-03'});
+  document.getElementById('houseAge').addEventListener('change', () => { buildLifespanTable(); recomputeAll(); });
+  document.getElementById('sqft').addEventListener('change', () => { buildLifespanTable(); recomputeAll(); });
+  document.addEventListener('change', recomputeAll);
+  document.getElementById('sellerPurchaseDate').addEventListener('input', () => { syncIndexReference(); onPurchaseDateChange(); recomputeAll(); });
+  document.getElementById('sellerPurchasePrice').addEventListener('input', () => { syncIndexReference(); recomputeAll(); });
+  document.getElementById('refiStatus').addEventListener('change', () => { onRefiStatusChange(); recomputeAll(); });
+  document.getElementById('wasRentListed').addEventListener('change', () => { onRentListedChange(); recomputeAll(); });
+
+  ['buyerRate','compTodayRate','cRate'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => { markTouched(id); syncRateFields(id); recomputeAll(); });
+  });
+  ['buyerDownPct','compDownPct','cDownPct'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => { markTouched(id); syncDownPaymentFields(id); recomputeAll(); });
+  });
+  ['indexRefDate','indexRefPrice'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => { markTouched(id); recomputeAll(); });
+  });
+
+  document.addEventListener('input', recomputeAll);
+  onPurchaseDateChange();
+  onRefiStatusChange();
+  onRentListedChange();
+  syncIndexReference();
+  syncRateFields('buyerRate');
+  syncDownPaymentFields('buyerDownPct');
+  recomputeAll();
+</script>
+
+</body>
+</html>
